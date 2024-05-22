@@ -212,6 +212,33 @@ int jumElm(List L) {
     return i;
 }
 
+void memberGroup(List L) {
+    int Choice;
+
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    printf("+\t\t\tMember Group\t\t\t+\n");
+    printf("+\t\t\t\t\t\t\t+\n");
+    printf("+\t\t\t\t\t\t\t+\n");
+    printf("+\t Fauzy Faadillah\t\t2350081020\t+\n");
+    printf("+\t Bagas Aulia Suryawitono\t2350081014\t+\n");
+    printf("+\t Muhamad Yusron Noval\t\t2350081003\t+\n");
+    printf("+\t\t\t\t\t\t\t+\n");
+    printf("+\t\t\t\t\t\t\t+\n");
+    printf("+ 5 for back to main menu!\t\t\t\t+\n");
+    printf("+\t\t\t\t\t\t\t+\n");
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    printf("\n");
+    printf("What is your choice: ");
+    scanf("%d", &Choice);
+    printf("\n");
+
+    switch (Choice) {
+        case 5:
+            MainMenu(&L);
+            break;
+    }
+}
+
 void MainMenu(List *L) {
     int Choice;
 
@@ -223,6 +250,7 @@ void MainMenu(List *L) {
     printf("+ Select number 2 for going to Search Menu\t\t+\n");
     printf("+ Select number 3 for going to Delete Menu\t\t+\n");
     printf("+ Select number 4 for display data\t\t\t+\n");
+    printf("+ Select number 7 for display members in group\t\t+\n");
     printf("+ 5 for exit the program!\t\t\t\t+\n");
     printf("+\t\t\t\t\t\t\t+\n");
     printf("+\t\t\t\t\t\t\t+\n");
@@ -247,13 +275,19 @@ void MainMenu(List *L) {
 
         case 4:
             displayData(*L);
+            break;
+
+        case 7:
+            memberGroup(*L);
+            break;
+
         case 5:
             break;
     }
 }
 
 void InsertMenu(List *L) {
-    int Choice, N;
+    int Choice, N, Elemen;
 
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     printf("+\t\t\tInsert Menu\t\t\t+\n");
@@ -284,9 +318,21 @@ void InsertMenu(List *L) {
             }
 
             InsertMenu(L);
+            break;
 
         case 2:
-            printf("done");
+            printf("\n\n=========Operator Add After=========\n");
+            printf("Masukan elemen: ");
+            scanf("%d", &N);
+
+            CetakList(*L);
+            printf("\n");
+            printf("Ingin disisipkan pada elemen ke: ");
+            scanf("%d", &Elemen);
+
+            AddAfter(L, N, Elemen);
+
+            InsertMenu(L);
             break;
 
         case 3:
@@ -301,22 +347,24 @@ void InsertMenu(List *L) {
             }
 
             InsertMenu(L);
+            break;
         
         case 4:
             MainMenu(L);
+            break;
     }
 }
 
 void SearchMenu(List *L) {
-    int Choice;
+    address searchElm;
+    int Choice, info;
 
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     printf("+\t\t\tSearch Menu\t\t\t+\n");
     printf("+\t\t\t\t\t\t\t+\n");
     printf("+\t\t\t\t\t\t\t+\n");
-    printf("+ 1 for insert front\t\t\t\t\t+\n");
-    printf("+ 2 for insert middle/after\t\t\t\t+\n");
-    printf("+ 3 for back to the main menu\t\t\t\t+\n");
+    printf("+ 1 for search elemen\t\t\t\t\t+\n");
+    printf("+ 2 for back to the main menu\t\t\t\t+\n");
     printf("+\t\t\t\t\t\t\t+\n");
     printf("+\t\t\t\t\t\t\t+\n");
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
@@ -327,24 +375,29 @@ void SearchMenu(List *L) {
 
     switch (Choice) {
         case 1:
-            printf("done");
-            break;
+            CetakList(*L);
+            printf("\n\n=========Operator Search=========\n");
+            printf("Masukan Elemen yang dicari: ");
+            scanf("%d", &info);
 
-        case 2:
-            printf("done");
-            break;
+            searchElm = Search(*L, info);
+            if (searchElm != Nil) {
+                printf("\nElemen %d ada didalam list\n\n", info);
+            } else {
+                printf("Elemen %d tidak ada di list\n\n", info);
+            }
 
-        case 3:
-            printf("done");
+            SearchMenu(L);
             break;
         
-        case 4:
+        case 2:
             MainMenu(L);
+            break;
     }
 }
 
 void DeleteMenu(List *L) {
-    int Choice, tmp;
+    int Choice, tmp, Elemen;
 
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     printf("+\t\t\tDelete Menu\t\t\t+\n");
@@ -366,17 +419,26 @@ void DeleteMenu(List *L) {
         case 1:
             DelFirst(L, &tmp);
             DeleteMenu(L);
+            break;
 
         case 2:
-            printf("done");
+            CetakList(*L);
+            printf("\n");
+            printf("Ingin dihapus pada elemen ke: ");
+            scanf("%d", &Elemen);
+
+            DelAfter(L, &tmp, Elemen);
+            DeleteMenu(L);
             break;
 
         case 3:
             DelLast(L, &tmp);
             DeleteMenu(L);
+            break;
         
         case 4:
             MainMenu(L);
+            break;
     }
 }
 

@@ -46,6 +46,7 @@ void CetakList(List L);
 
 int jumElm(List L);
 
+void memberGroup(List L);
 void MainMenu(List *L);
 void InsertMenu(List *L);
 void SearchMenu(List *L);

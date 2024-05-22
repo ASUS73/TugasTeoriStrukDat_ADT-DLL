@@ -11,8 +11,6 @@
 
 int main() {
     List node;
-    infoType info, tmp;
-    address searchElm;
 
     CreateList(&node);
 
@@ -25,18 +23,6 @@ int main() {
     printf("\n\n");
 
     MainMenu(&node);
-
-    // printf("\n\n=========Operator Search=========\n");
-    // printf("Masukan Elemen yang dicari: ");
-    // scanf("%d", &info);
-
-    // searchElm = Search(node, info);
-    // if (searchElm != Nil) {
-    //     // printf("\nElemen %d ada di list dengan alamat %d", info, searchElm);
-    //     printf("\nElemen %d ada didalam list", info);
-    // } else {
-    //     printf("Elemen %d tidak ada di list", info);
-    // }
 
     return 0;
 }
